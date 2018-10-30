@@ -13,6 +13,7 @@ from django.conf import settings
 
 
 from apps.users.models import *
+from celery_tasks.tasks import send_register_active_email
 
 
 class RegisterView(View):
@@ -52,13 +53,7 @@ class RegisterView(View):
         token = token.decode('utf8')
 
         # 发邮件
-        subject = '欢迎来到【天天生鲜】，请验证您的邮箱'
-        message = ''
-        sender = settings.EMAIL_FROM
-        receiver = [email]
-        html_message = '<h1>你好，%s：</h1>感谢你成为【天天生鲜】成员，为了更好地使用本站提供的服务，请点击或访问以下链接验证您的邮箱(自发送邮件起一小时内有效)：<br><a href="http://127.0.0.1:8000/user/active/%s">http://127.0.0.1:8000/user/active/%s</a><br>如果您不是本站成员，请忽略此邮件。'%(username, token, token)
-
-        send_mail(subject, message, sender, receiver, html_message=html_message)
+        send_register_active_email.delay(email, username, token)
 
         return redirect(reverse('goods:index'))
 
