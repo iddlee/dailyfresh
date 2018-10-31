@@ -1,31 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+{% extends 'base.html' %}
 {% load static %}
-<head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>天天生鲜-首页</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-	<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+{% block title %}天天生鲜-首页{% endblock %}
+
+{% block topfiles %}
+    <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/slide.js' %}"></script>
-</head>
-<body>
-    {% include 'header.html' %}
+{% endblock %}
 
-	<div class="search_bar clearfix">
-		<a href="{% url 'goods:index' %}" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
-		<div class="search_con fl">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
-		</div>
-		<div class="guest_cart fr">
-			<a href="#" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl" id="show_count">1</div>
-		</div>
-	</div>
-
-	<div class="navbar_con">
+{% block body %}
+    <div class="navbar_con">
 		<div class="navbar">
 			<h1 class="fl">全部商品分类</h1>
 			<ul class="navlist fl">
@@ -109,7 +93,7 @@
 			<div class="subtitle fl">
 				<span>|</span>
 				<a href="#">河虾</a>
-				<a href="#">扇贝</a>				
+				<a href="#">扇贝</a>
 			</div>
 			<a href="#" class="goods_more fr">查看更多 ></a>
 		</div>
@@ -296,10 +280,11 @@
 			</ul>
 		</div>
 	</div>
+{% endblock %}
 
-    {% include 'footer.html' %}
-
-	<script type="text/javascript" src="{% static 'js/slideshow.js' %}"></script>
+{#网页底部引入文件块#}
+{% block bottomfiles %}
+    <script type="text/javascript" src="{% static 'js/slideshow.js' %}"></script>
 	<script type="text/javascript">
 		BCSlideshow('focuspic');
 		var oFruit = document.getElementById('fruit_more');
@@ -316,5 +301,4 @@
 			window.location.href = 'list.html';
 		}
 	</script>
-</body>
-</html>
+{% endblock %}

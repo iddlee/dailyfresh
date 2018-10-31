@@ -150,3 +150,21 @@ EMAIL_HOST_USER = 'lflxc11@163.com'
 EMAIL_HOST_PASSWORD = 'lxc321'
 # 收件人看到的发件人
 EMAIL_FROM = '天天生鲜<lflxc11@163.com>'
+
+# Django的缓存配置
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        # 更改redis的地址
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# SESSION_CACHE_ALIAS = "default"
+
+# 在访问需要登录的页面时，跳转到以下页面
+LOGIN_URL = '/user/login'

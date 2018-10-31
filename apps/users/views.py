@@ -78,14 +78,55 @@ class ActiveView(View):
 
 class LoginView(View):
     def get(self, request):
-        return render(request, 'login.html')
+        # 判断是否记住了用户名
+        if 'username' in request.COOKIES:
+            username = request.COOKIES.get('username')
+            checked = 'checked'
+        else:
+            username = ''
+            checked = ''
+
+        return render(request, 'login.html', {'username': username, 'checked': checked})
 
     def post(self, request):
         username = request.POST.get('username')
         password = request.POST.get('pwd')
+        if not all([username, password]):
+            return render(request, 'login.html', {'errmsg': '信息缺失，不合法'})
         user = authenticate(username=username, password=password)
         if user:
-            login(request, user)
-            return redirect(reverse('goods:index'))
+            if user.is_active:
+                login(request, user)
+                # 获取登陆后所要跳转的地址
+                next_url = request.GET.get('next', reverse('goods:index'))  # 如果是正常登录，网址后没有next，默认跳转首页
+                response = redirect(next_url)
+                # 判断用户是否勾选记住用户名
+                remember = request.POST.get('remember')
+                if remember == 'on':
+                    # 记住用户名
+                    response.set_cookie('username', user.username, max_age=7*24*3600)
+                else:
+                    response.delete_cookie('username')
+                return response
+            else:
+                return render(request, 'login.html', {'errmsg': '账户未激活，请到注册邮箱激活'})
         else:
             return render(request, 'login.html', {'errmsg': '账号或密码错误'})
+
+
+class UserInfoView(View):
+    '''用户中心信息'''
+    def get(self, request):
+        return render(request, 'user_center_info.html', {'page': 'user'})
+
+
+class UserOrderView(View):
+    '''用户中心订单'''
+    def get(self, request):
+        return render(request, 'user_center_order.html', {'page': 'order'})
+
+
+class AddressView(View):
+    '''用户中心地址'''
+    def get(self, request):
+        return render(request, 'user_center_site.html', {'page': 'address'})
