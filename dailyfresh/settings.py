@@ -156,15 +156,15 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         # 更改redis的地址
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://10.12.153.104:6379/8",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     }
 }
 
-# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-# SESSION_CACHE_ALIAS = "default"
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
 # 在访问需要登录的页面时，跳转到以下页面
 LOGIN_URL = '/user/login'

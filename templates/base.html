@@ -19,9 +19,13 @@
             <div class="welcome fl">欢迎来到天天生鲜!</div>
             <div class="fr">
 
-                {% if request.user.is_authenticated %}
+                {% if user.is_authenticated %}
                 <div class="login_info fl">
-                    欢迎您：<em>{{ request.user.username }}</em>
+                    欢迎您：<a href="{% url 'user:user' %}"><em>{{ user.username }}</em></a>
+                </div>
+                <div class="login_btn fl">
+                <span>|</span>
+                    <a href="{% url 'user:logout' %}">退出</a>
                 </div>
                 {% else %}
                 <div class="login_btn fl">
