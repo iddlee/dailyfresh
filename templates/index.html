@@ -31,7 +31,7 @@
 		<div class="slide fl">
 			<ul class="slide_pics">
                 {% for goods_banner in goods_banners %}
-                    <li><a href="#"><img src="{{ goods_banner.image.url }}" alt="幻灯片"></a></li>
+                    <li><a href="{% url 'goods:detail' goods_banner.sku.id %}"><img src="{{ goods_banner.image.url }}" alt="幻灯片"></a></li>
                 {% endfor %}
 			</ul>
 			<div class="prev"></div>
@@ -51,25 +51,23 @@
 			<h3 class="fl" id="model0{{ forloop.counter }}">{{ type.name }}</h3>
 			<div class="subtitle fl">
 				<span>|</span>
-                {% for type in types.title_banners %}
-                    <a href="#">{{ type.sku.name }}</a>
+                {% for banner in type.title_banners %}
+                    <a href="{% url 'goods:detail' banner.sku.id %}">{{ banner.sku.name }}</a>
                 {% endfor %}
 			</div>
-			<a href="#" class="goods_more fr" id="fruit_more">查看更多 ></a>
+			<a href="{% url 'goods:list' type.id 1 %}" class="goods_more fr" id="fruit_more">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
 			<div class="goods_banner fl"><img src="{{ type.image.url }}"></div>
 			<ul class="goods_list fl">
-				{% for type in types.image_banners %}
+				{% for banner in type.image_banners %}
 				    <li>
-                        <h4><a href="#">{{ type.sku.name }}</a></h4>
-                        <a href="#"><img src="{{ type.sku.image.url }}"></a>
-                        <div class="prize">¥ {{ type.sku.price }}</div>
+                        <h4><a href="{% url 'goods:detail' banner.sku.id %}">{{ banner.sku.name }}</a></h4>
+                        <a href="{% url 'goods:detail' banner.sku.id %}"><img src="{{ banner.sku.image.url }}"></a>
+                        <div class="prize">¥ {{ banner.sku.price }}</div>
 				    </li>
 				{% endfor %}
-
-
 			</ul>
 		</div>
 	</div>
