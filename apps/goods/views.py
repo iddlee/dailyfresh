@@ -66,7 +66,7 @@ class DetailView(View):
         sku_orders = OrderGoods.objects.filter(sku=sku).exclude(comment='')
 
         # 获取新品信息
-        new_skus = GoodsSKU.objects.filter(type=sku.type).order_by('-create_time')
+        new_skus = GoodsSKU.objects.filter(type=sku.type).order_by('-create_time')[:2]
 
         # 获取同一个SPU的其他规格商品
         same_spu_skus = GoodsSKU.objects.filter(goods=sku.goods).exclude(id=goods_id)
@@ -132,7 +132,7 @@ class ListView(View):
             skus = GoodsSKU.objects.filter(type=type).order_by('id')
 
         # 对数据进行分页
-        paginator = Paginator(skus, 6)
+        paginator = Paginator(skus, 5)
 
         # 获取第page页的内容
         try:
@@ -162,7 +162,7 @@ class ListView(View):
             pages = range(page-2, page+3)
 
         # 获取新品信息
-        new_skus = GoodsSKU.objects.filter(type=type).order_by('-create_time')
+        new_skus = GoodsSKU.objects.filter(type=type).order_by('-create_time')[:2]
 
         # 获取用户购物车中商品的数目
         user = request.user
