@@ -422,7 +422,7 @@ html,body{height:100%}
 .goods_list_th .col04{width:15%}
 .goods_list_th .col05{width:15%}
 
-.goods_list_td{height:80px;border-bottom:1px solid #eeeded}
+.goods_list_td{height:80px;border-bottom:1px solid #eeeded;}
 .goods_list_td li{float:left;line-height:80px;text-align:center;}
 .goods_list_td .col01{width:4%}
 .goods_list_td .col02{width:6%}

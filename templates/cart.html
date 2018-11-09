@@ -14,7 +14,7 @@
 		<li class="col05">小计</li>
 		<li class="col06">操作</li>
 	</ul>
-    <form action="/order/place/" method="post">
+    <form action="{% url 'order:place' %}" method="post">
     {% for sku in skus %}
         <ul class="cart_list_td clearfix">
             <li class="col01"><input type="checkbox" name="sku_ids" value="{{ sku.id }}" checked></li>
