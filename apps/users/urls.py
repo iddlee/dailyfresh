@@ -10,7 +10,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('active/<token>/', ActiveView.as_view(), name='active'),  # 用户激活
     path('', UserInfoView.as_view(), name='user'),
-    path('order/', UserOrderView.as_view(), name='order'),
+    path('order/<page>/', UserOrderView.as_view(), name='order'),
     path('address/', AddressView.as_view(), name='address'),
 ]
 
