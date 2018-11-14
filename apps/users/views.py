@@ -164,7 +164,7 @@ class UserOrderView(LoginRequiresMixin, View):
     def get(self, request, page):
         # 获取用户的订单信息
         user =request.user
-        orders = OrderInfo.objects.filter(user)
+        orders = OrderInfo.objects.filter(user=user).order_by('-create_time')
 
         # 遍历获取订单商品的信息
         for order in orders:
@@ -178,6 +178,8 @@ class UserOrderView(LoginRequiresMixin, View):
                 # 动态给order_sku增加属性amount，保存订单商品的小计
                 order_sku.amount = amount
 
+            # 动态给order增加属性，保存订单状态标题
+            order.status_name = OrderInfo.ORDER_STATUS[order.order_status]
             # 动态给order增加属性，保存订单商品的信息
             order.order_skus = order_skus
 
@@ -215,7 +217,7 @@ class UserOrderView(LoginRequiresMixin, View):
         context = {'order_page': order_page,
                    'pages': pages,
                    'page': 'order'}
-         
+
         return render(request, 'user_center_order.html', context)
 
 
